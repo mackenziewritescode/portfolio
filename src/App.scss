@@ -47,10 +47,18 @@
   text-align: center;
 }
 
+@mixin link {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+}
+
 * {
   margin: 0;
   padding: 0;
 }
+
+// ----------------------------------  +- Page 1 + 2 -+
 
 .App {
   font-family: "Helvetica", sans-serif;
@@ -71,16 +79,16 @@
     font-family: "HelveticaBlack", sans-serif;
     font-size: 48px;
     margin-left: 15vw;
-    line-height: 80px;
+    margin-right: 10vw;
+    margin-bottom: 30px;
+    line-height: auto;
 
     @include for-tablet-landscape {
       font-size: 38px;
-      line-height: 60px;
     }
     @include for-phone {
       margin-left: 8vw;
       font-size: 30px;
-      line-height: 50px;
     }
   }
 
@@ -89,6 +97,17 @@
     @include center-text;
     position: absolute;
     bottom: 100px;
+  }
+
+  .arrows {
+    @include center-text;
+    position: absolute;
+    bottom: 30px;
+    .arrow {
+      font-size: 40px;
+      margin: 0 80px;
+      color: rgba(0, 0, 0, 0.5);
+    }
   }
 
   #page-1 {
@@ -104,6 +123,124 @@
 
     #page-2-block-1 {
       margin-top: 20vh;
+    }
+  }
+
+  // ------------------------------------ Page 3 -- Projects --
+
+  #page-3 {
+    background: firebrick;
+    height: auto;
+    min-height: 100vh;
+  }
+
+  #page-3-title {
+    @include center-text;
+    font-family: "HelveticaBlack", sans-serif;
+    font-size: 60px;
+    margin: 10vh 0 40px;
+  }
+
+  #project-wrap {
+    display: block;
+    width: 80vw;
+    margin: 0 auto 100px;
+    text-align: center;
+    @include for-phone {
+      width: 100vw;
+    }
+
+    .project {
+      display: inline-block;
+      margin: 30px;
+      width: 300px;
+
+      .project-img-link {
+        display: block;
+        width: 300px;
+        height: 200px;
+        background: black;
+      }
+
+      .project-title {
+        font-family: "HelveticaBlack";
+        font-size: 24px;
+        margin: 10px;
+      }
+
+      .project-description {
+        margin-bottom: 10px;
+      }
+
+      .project-link,
+      .project-github {
+        @include link;
+        margin: 0 10px;
+        font-family: "HelveticaBold";
+        font-size: 18px;
+      }
+    }
+  }
+
+  // ----------------------------------  +- Page 4 -+
+  #page-4 {
+    $diameter: 250px;
+    $icon-height: 120px;
+
+    #page-4-block-1 {
+      margin-top: 10vh;
+    }
+
+    #page-4-block-2 {
+      margin-top: 100px;
+    }
+
+    #page-4-block-3 {
+      @include center-text;
+      margin-top: 100px;
+    }
+
+    #contact-wrap {
+      display: block;
+      width: 80vw;
+      margin: 0 auto 100px;
+      text-align: center;
+      font-size: $icon-height;
+      @include for-phone {
+        width: 100vw;
+      }
+    }
+
+    .contact-circle {
+      display: inline-block;
+      margin: 40px;
+      width: $diameter;
+      height: $diameter;
+      border-radius: $diameter / 2;
+      background: orange;
+
+      @include for-tablet-landscape {
+        width: $diameter / 1.6;
+        height: $diameter / 1.6;
+        font-size: $icon-height / 1.6;
+      }
+    }
+    .contact-icon {
+      margin-top: $diameter / 2 - $icon-height / 2;
+
+      @include for-tablet-landscape {
+        margin-top: $diameter / 3.2 - $icon-height / 3.2;
+      }
+    }
+
+    footer {
+      @include center-text;
+      position: absolute;
+      bottom: 12px;
+
+      footer a {
+        @include link;
+      }
     }
   }
 }
