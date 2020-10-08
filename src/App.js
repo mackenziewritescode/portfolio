@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.scss";
+import Obfuscate from "react-obfuscate";
 import { ImArrowDown } from "react-icons/im";
 import { MdEmail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
@@ -205,27 +206,34 @@ function App() {
           Get in touch:
         </p>
         <div id="contact-wrap">
-          <div className="contact-circle">
-            <MdEmail className="contact-icon" />
-          </div>
-          <div className="contact-circle">
-            <FaLinkedin className="contact-icon" />
-          </div>
-        </div>
-      </div>
-      <footer>
-        <p>
-          This site was made by{" "}
-          <a className="footer-link" href="http://www.sunkenworld.com/about/">
-            Mackenzie Charlton
-          </a>{" "}
-          in 2020 with{" "}
-          <a className="footer-link" href="https://reactjs.org">
-            React
+          <Obfuscate email="mackenzie.charlton@gmail.com" aria-label="Email">
+            <div className="contact-circle" id="contact-email">
+              <MdEmail className="contact-icon" />
+            </div>
+          </Obfuscate>
+          <a
+            href="https://www.linkedin.com/in/mackenzie-charlton-702517169/"
+            alt=""
+          >
+            <div className="contact-circle" id="contact-linkedin">
+              <FaLinkedin className="contact-icon" />
+            </div>
           </a>
-          .
-        </p>
-      </footer>
+        </div>
+        <footer>
+          <p>
+            This site was made by{" "}
+            <a className="footer-link" href="http://www.sunkenworld.com/about/">
+              Mackenzie Charlton
+            </a>{" "}
+            in 2020 with{" "}
+            <a className="footer-link" href="https://reactjs.org">
+              React
+            </a>
+            .
+          </p>
+        </footer>
+      </div>
     </div>
   );
 }

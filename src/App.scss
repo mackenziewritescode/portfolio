@@ -189,6 +189,10 @@
 
     #page-4-block-1 {
       margin-top: 10vh;
+      a {
+        @include link;
+        color: orangered;
+      }
     }
 
     #page-4-block-2 {
@@ -226,6 +230,8 @@
       }
     }
     .contact-icon {
+      @include link;
+      color: white;
       margin-top: $diameter / 2 - $icon-height / 2;
 
       @include for-tablet-landscape {
@@ -236,10 +242,11 @@
     footer {
       @include center-text;
       position: absolute;
-      bottom: 12px;
+      bottom: 18px;
 
-      footer a {
+      a {
         @include link;
+        color: orangered;
       }
     }
   }
