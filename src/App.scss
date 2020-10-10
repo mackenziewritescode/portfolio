@@ -58,6 +58,9 @@
   padding: 0;
 }
 
+@mixin fade-slide {
+}
+
 // ----------------------------------  +- Page 1 + 2 -+
 
 .App {
@@ -112,9 +115,30 @@
 
   #page-1 {
     background: rgb(231, 231, 231);
+    background: url(images/bg1.jpg) no-repeat center center fixed;
+
+    img {
+      width: 100%;
+      display: inline-block;
+    }
+
+    #page-1-knockout {
+      background: url(images/page-1-knockout.svg) no-repeat;
+      position: absolute;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+    }
+
+    // #bg {
+    //   background: url(bg1.jpg) no-repeat center center fixed;
+    //   z-index: 999;
+    // }
 
     #page-1-block-1 {
       margin-top: 20vh;
+      font-size: 120px;
     }
   }
 

@@ -17,6 +17,9 @@ function App() {
     <div className="App">
       {/* --------------------------------------------------  PAGE 1  */}
       <div id="page-1" className="page">
+        {/* <img src="images/bg1.jpg" alt=""></img> */}
+        <img src="images/bg1.jpg" alt=""></img>
+        <div id="page-1-knockout"></div>
         <p className="main-text" id="page-1-block-1">
           Hello.
         </p>
@@ -223,7 +226,7 @@ function App() {
         <footer>
           <p>
             This site was made by{" "}
-            <a className="footer-link" href="http://www.sunkenworld.com/about/">
+            <a className="footer-link" href="http://www.sunkenworld.com/">
               Mackenzie Charlton
             </a>{" "}
             in 2020 with{" "}
