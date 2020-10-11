@@ -56,6 +56,9 @@
 * {
   margin: 0;
   padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 @mixin fade-slide {
@@ -114,31 +117,20 @@
   }
 
   #page-1 {
-    background: rgb(231, 231, 231);
-    background: url(images/bg1.jpg) no-repeat center center fixed;
-
-    img {
-      width: 100%;
-      display: inline-block;
-    }
-
-    #page-1-knockout {
-      background: url(images/page-1-knockout.svg) no-repeat;
-      position: absolute;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      margin: 0;
-    }
-
-    // #bg {
-    //   background: url(bg1.jpg) no-repeat center center fixed;
-    //   z-index: 999;
-    // }
+    background: red;
+    background: url(images/forest-3.jpg) no-repeat center center fixed;
 
     #page-1-block-1 {
-      margin-top: 20vh;
-      font-size: 120px;
+      position: absolute;
+      margin: 0;
+      padding: 10vh 0 0 5vw;
+      width: 100%;
+      height: 100%;
+      font-size: 160px;
+      line-height: 150px;
+      letter-spacing: -11px;
+      background: white;
+      mix-blend-mode: screen;
     }
   }
 

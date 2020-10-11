@@ -17,19 +17,15 @@ function App() {
     <div className="App">
       {/* --------------------------------------------------  PAGE 1  */}
       <div id="page-1" className="page">
-        {/* <img src="images/bg1.jpg" alt=""></img> */}
-        <img src="images/bg1.jpg" alt=""></img>
-        <div id="page-1-knockout"></div>
+
         <p className="main-text" id="page-1-block-1">
           Hello.
-        </p>
-        <p className="main-text" id="page-1-block-2">
-          My name is Mackenzie Charlton.
-        </p>
-        <p className="main-text" id="page-1-block-3">
+        <br />
+          My name is Mackenzie.
+          <br />
           I'm a web developer.
         </p>
-        <p className="bottom-text" id="page-1-block-4">
+        <p className="bottom-text" id="page-1-block-2">
           Scroll down to learn more
         </p>
         {arrows}
