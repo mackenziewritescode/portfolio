@@ -17,18 +17,19 @@ function App() {
     <div className="App">
       {/* --------------------------------------------------  PAGE 1  */}
       <div id="page-1" className="page">
-
-        <p className="main-text" id="page-1-block-1">
-          Hello.
-        <br />
-          My name is Mackenzie.
-          <br />
-          I'm a web developer.
-        </p>
-        <p className="bottom-text" id="page-1-block-2">
+        <div id="page-1-cover" className="slide-right">
+        </div>
+        <div className="main-text" id="page-1-main-text">
+          <p id="page-1-block-1">Hello.</p>
+          <p id="page-1-block-2">My name is Mackenzie.</p>
+          <p id="page-1-block-3">I'm a web developer.</p>
+        </div>
+        <p className="bottom-text" id="page-1-block-4">
           Scroll down to learn more
         </p>
         {arrows}
+        
+        
       </div>
       {/* ------------------------------------------------  PAGE 2  */}
       <div id="page-2" className="page">

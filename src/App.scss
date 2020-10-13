@@ -53,15 +53,21 @@
   text-decoration: none;
 }
 
+@mixin noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
 * {
   margin: 0;
   padding: 0;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-}
-
-@mixin fade-slide {
 }
 
 // ----------------------------------  +- Page 1 + 2 -+
@@ -120,7 +126,36 @@
     background: red;
     background: url(images/forest-3.jpg) no-repeat center center fixed;
 
-    #page-1-block-1 {
+    @keyframes fade {
+      from {
+        color: white;
+      }
+      to {
+        color: black;
+      }
+    }
+
+    // @keyframes background-fade {
+    //   from {
+    //     opacity: 0;
+    //   }
+    //   to {
+    //     opacity: 1;
+    //   }
+    // }
+
+    @keyframes background-slide {
+      from {
+        top: -110vh;
+      }
+      to {
+        top: 0px;
+      }
+    }
+
+    #page-1-main-text {
+      @include noselect;
+      $page-fade: 1.5s;
       position: absolute;
       margin: 0;
       padding: 10vh 0 0 5vw;
@@ -131,6 +166,30 @@
       letter-spacing: -11px;
       background: white;
       mix-blend-mode: screen;
+      // opacity: 0;
+      top: -110vh;
+      animation: background-slide $page-fade ease-out;
+      animation-delay: 1s;
+      animation-fill-mode: forwards;
+
+      #page-1-block-1 {
+        color: white;
+        animation: fade 2s;
+        animation-delay: $page-fade + 1s;
+        animation-fill-mode: forwards;
+      }
+      #page-1-block-2 {
+        color: white;
+        animation: fade 2s;
+        animation-delay: $page-fade + 2.5s;
+        animation-fill-mode: forwards;
+      }
+      #page-1-block-3 {
+        color: white;
+        animation: fade 2s;
+        animation-delay: $page-fade + 4s;
+        animation-fill-mode: forwards;
+      }
     }
   }
 
