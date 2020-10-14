@@ -15,27 +15,27 @@
   src: url("./fonts/HelveticaLTStd-Light.otf") format("opentype");
 }
 
-@mixin for-phone {
-  @media (max-width: 599px) {
+@mixin max-400 {
+  @media (max-width: 400px) {
     @content;
   }
 }
-@mixin for-tablet-portrait {
+@mixin max-600 {
   @media (max-width: 600px) {
     @content;
   }
 }
-@mixin for-tablet-landscape {
+@mixin max-900 {
   @media (max-width: 900px) {
     @content;
   }
 }
-@mixin for-desktop {
+@mixin max-1200 {
   @media (max-width: 1200px) {
     @content;
   }
 }
-@mixin for-big-desktop {
+@mixin max-1800 {
   @media (max-width: 1800px) {
     @content;
   }
@@ -70,14 +70,18 @@
   box-sizing: border-box;
 }
 
-// ----------------------------------  +- Page 1 + 2 -+
+// ----------------------------------  +- Page 1 -+
 
 .App {
   font-family: "Helvetica", sans-serif;
   position: absolute;
   width: 100%;
+  // min-width: 380px;
   top: 0px;
   left: 0px;
+  height: 100vh;
+  overflow: scroll;
+  scroll-snap-type: y mandatory;
 
   .page {
     position: relative;
@@ -85,46 +89,58 @@
     width: 100%;
     height: 100vh;
     min-height: 600px;
+    scroll-snap-align: start;
   }
 
   .main-text {
     font-family: "HelveticaBlack", sans-serif;
     font-size: 48px;
-    margin-left: 15vw;
+    margin-left: 10vw;
     margin-right: 10vw;
     margin-bottom: 30px;
     line-height: auto;
 
-    @include for-tablet-landscape {
-      font-size: 38px;
-    }
-    @include for-phone {
-      margin-left: 8vw;
-      font-size: 30px;
-    }
+    // @include max-900 {
+    //   font-size: 38px;
+    // }
+    // @include max-400 {
+    //   margin-left: 8vw;
+    //   font-size: 30px;
+    // }
   }
 
   .bottom-text {
     @extend .main-text;
     @include center-text;
     position: absolute;
-    bottom: 100px;
+    bottom: 65px;
+    @media (max-width: 700px) {
+      font-size: 28px;
+    }
   }
 
   .arrows {
     @include center-text;
     position: absolute;
-    bottom: 30px;
+    bottom: 16px;
     .arrow {
       font-size: 40px;
       margin: 0 80px;
       color: rgba(0, 0, 0, 0.5);
+      @media (max-width: 650px) {
+        margin: 0 40px;
+      }
     }
   }
 
   #page-1 {
     background: red;
     background: url(images/forest-3.jpg) no-repeat center center fixed;
+    background-size: cover;
+    $page-fade: 1s;
+    // @media (max-height: 1000px) {
+    //   height: 120vh;
+    // }
 
     @keyframes fade {
       from {
@@ -134,15 +150,6 @@
         color: black;
       }
     }
-
-    // @keyframes background-fade {
-    //   from {
-    //     opacity: 0;
-    //   }
-    //   to {
-    //     opacity: 1;
-    //   }
-    // }
 
     @keyframes background-slide {
       from {
@@ -155,7 +162,6 @@
 
     #page-1-main-text {
       @include noselect;
-      $page-fade: 1.5s;
       position: absolute;
       margin: 0;
       padding: 10vh 0 0 5vw;
@@ -166,7 +172,6 @@
       letter-spacing: -11px;
       background: white;
       mix-blend-mode: screen;
-      // opacity: 0;
       top: -110vh;
       animation: background-slide $page-fade ease-out;
       animation-delay: 1s;
@@ -175,33 +180,145 @@
       #page-1-block-1 {
         color: white;
         animation: fade 2s;
-        animation-delay: $page-fade + 1s;
+        animation-delay: $page-fade + 1.5s;
         animation-fill-mode: forwards;
       }
       #page-1-block-2 {
         color: white;
         animation: fade 2s;
-        animation-delay: $page-fade + 2.5s;
+        animation-delay: $page-fade + 3s;
         animation-fill-mode: forwards;
       }
       #page-1-block-3 {
         color: white;
         animation: fade 2s;
-        animation-delay: $page-fade + 4s;
+        animation-delay: $page-fade + 4.5s;
         animation-fill-mode: forwards;
+      }
+
+      @media only screen and (max-height: 970px) {
+        font-size: 120px;
+        line-height: 110px;
+        letter-spacing: -3px;
+      }
+
+      @media only screen and (max-width: 900px) {
+        font-size: 120px;
+        line-height: 110px;
+        letter-spacing: -9px;
+      }
+      @media only screen and (max-height: 750px) {
+        font-size: 90px;
+        line-height: 80px;
+        letter-spacing: -7px;
+      }
+      @media only screen and (max-width: 700px) {
+        font-size: 90px;
+        line-height: 80px;
+        letter-spacing: -7px;
+      }
+      @media only screen and (max-width: 500px) {
+        font-size: 60px;
+        line-height: 50px;
+        letter-spacing: -5px;
+      }
+    }
+    #page-1-block-4 {
+      opacity: 0;
+      color: rgb(0, 0, 0);
+      animation: block-4-fade 1s ease-out forwards;
+      animation-delay: $page-fade + 6s;
+    }
+    @keyframes block-4-fade {
+      0% {
+        transform: translate3d(0, -30px, 0);
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .arrows {
+      opacity: 0;
+      animation-name: arrow-fade-in, arrow-bounce;
+      animation-duration: 1000ms, 1000ms, 1000ms;
+      animation-delay: $page-fade + 6.3s, $page-fade + 7.3s;
+      animation-timing-function: ease-out, ease-in-out;
+      animation-iteration-count: 1, infinite;
+      animation-fill-mode: forwards, forwards;
+      animation-direction: normal, alternate;
+    }
+    @keyframes arrow-fade-in {
+      from {
+        transform: translate3d(0, -30px, 0);
+        opacity: 0;
+      }
+      to {
+        bottom: 16px;
+        opacity: 0.4;
+      }
+    }
+    @keyframes arrow-bounce {
+      from {
+        bottom: 16px;
+        opacity: 0.4;
+      }
+      to {
+        bottom: 10px;
+        opacity: 0.3;
       }
     }
   }
 
-  #page-2 {
-    background: rgb(189, 241, 233);
+  // ------------------------------------ Page 2 -+
 
-    #page-2-block-1 {
-      margin-top: 20vh;
+  #page-2 {
+    color: white;
+    margin: 0;
+    background: rgb(117, 227, 255);
+    background: url(images/sea-2.jpg) no-repeat center center fixed;
+    background-size: cover;
+
+    #page-2-text-wrap {
+      margin-top: 15vh;
+      background: black;
+      padding: 40px 0;
+      p {
+        color: white;
+        font-size: 90px;
+        line-height: 80px;
+        letter-spacing: -4px;
+
+        @media only screen and (max-width: 1200px) {
+          font-size: 50px;
+          line-height: 40px;
+          letter-spacing: -3px;
+        }
+        @media only screen and (max-height: 750px) {
+          font-size: 50px;
+          line-height: 40px;
+          letter-spacing: -3px;
+        }
+        @media only screen and (max-width: 700px) {
+          font-size: 40px;
+          line-height: 33px;
+          letter-spacing: -2px;
+        }
+      }
+    }
+    #page-2-block-4 {
+      @media only screen and (max-width: 1200px) {
+        font-size: 28px;
+      }
+    }
+    .arrow {
+      color: white;
+      font-size: 50px;
     }
   }
 
-  // ------------------------------------ Page 3 -- Projects --
+  // ------------------------------------ Page 3 -- Projects -+
 
   #page-3 {
     background: firebrick;
@@ -221,7 +338,7 @@
     width: 80vw;
     margin: 0 auto 100px;
     text-align: center;
-    @include for-phone {
+    @include max-400 {
       width: 100vw;
     }
 
@@ -285,7 +402,7 @@
       margin: 0 auto 100px;
       text-align: center;
       font-size: $icon-height;
-      @include for-phone {
+      @include max-400 {
         width: 100vw;
       }
     }
@@ -298,7 +415,7 @@
       border-radius: $diameter / 2;
       background: orange;
 
-      @include for-tablet-landscape {
+      @include max-900 {
         width: $diameter / 1.6;
         height: $diameter / 1.6;
         font-size: $icon-height / 1.6;
@@ -309,7 +426,7 @@
       color: white;
       margin-top: $diameter / 2 - $icon-height / 2;
 
-      @include for-tablet-landscape {
+      @include max-900 {
         margin-top: $diameter / 3.2 - $icon-height / 3.2;
       }
     }

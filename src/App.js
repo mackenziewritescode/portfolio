@@ -1,14 +1,14 @@
 import React from "react";
 import "./App.scss";
 import Obfuscate from "react-obfuscate";
-import { ImArrowDown } from "react-icons/im";
 import { MdEmail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
+import { BsChevronCompactDown } from "react-icons/bs";
 
 const arrows = (
   <div className="arrows">
-    <ImArrowDown className="arrow" /> <ImArrowDown className="arrow" />{" "}
-    <ImArrowDown className="arrow" />
+    <BsChevronCompactDown className="arrow" /> <BsChevronCompactDown className="arrow" />{" "}
+    <BsChevronCompactDown className="arrow" />
   </div>
 );
 
@@ -33,18 +33,20 @@ function App() {
       </div>
       {/* ------------------------------------------------  PAGE 2  */}
       <div id="page-2" className="page">
-        <p className="main-text" id="page-2-block-1">
-          I specialize in front-end web development.
-        </p>
-        <p className="main-text" id="page-2-block-2">
-          (I make websites.)
-        </p>
-        <p className="main-text" id="page-2-block-3">
-          Like this one!
-        </p>
+        <div id="page-2-text-wrap">
+          <p className="main-text" id="page-2-block-1">
+            I specialize in front-end web development.
+          </p>
+          <p className="main-text" id="page-2-block-2">
+            (I make websites.)
+          </p>
+          <p className="main-text" id="page-2-block-3">
+            Like this one!
+          </p>
+        </div>
         <p className="bottom-text" id="page-2-block-4">
-          check out some of my recent projects
-        </p>
+            check out some of my recent projects
+          </p>
         {arrows}
       </div>
       {/* ------------------------------------------------  PAGE 3  */}
