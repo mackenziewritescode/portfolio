@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import "./App.scss";
+import useIntersect from "./useIntersect";
 import Obfuscate from "react-obfuscate";
 import { MdEmail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
@@ -13,6 +14,12 @@ const arrows = (
 );
 
 function App() {
+
+  const ref = useRef();
+  const isIntersecting = useIntersect(ref, "-50%")
+
+
+
   return (
     <div className="App">
       {/* --------------------------------------------------  PAGE 1  */}
@@ -32,8 +39,21 @@ function App() {
         
       </div>
       {/* ------------------------------------------------  PAGE 2  */}
-      <div id="page-2" className="page">
-        <div id="page-2-text-wrap">
+      {/* <div id="page-2" className="page" ref={ref} >
+        {isIntersecting ? ( <div id="page-2-text-wrap" className="slide-animation">
+          <p className="main-text" id="page-2-block-1">
+            I specialize in front-end web development.
+          </p>
+          <p className="main-text" id="page-2-block-2">
+            (I make websites.)
+          </p>
+          <p className="main-text" id="page-2-block-3">
+            Like this one!
+          </p>
+        </div> ) : null } */}
+
+        <div id="page-2" className="page"  >
+        <div id="page-2-text-wrap" ref={ref} className={isIntersecting ?"slide-animation" : null}>
           <p className="main-text" id="page-2-block-1">
             I specialize in front-end web development.
           </p>
@@ -44,6 +64,7 @@ function App() {
             Like this one!
           </p>
         </div>
+        
         <p className="bottom-text" id="page-2-block-4">
             check out some of my recent projects
           </p>

@@ -70,6 +70,21 @@
   box-sizing: border-box;
 }
 
+// ----------------------------------  +- Intersection Animations -+
+
+.slide-animation {
+  animation: slide-animation 1s ease-in-out;
+  animation-fill-mode: forwards;
+}
+@keyframes background-slide {
+  from {
+    background: red;
+  }
+  to {
+    background: yellow;
+  }
+}
+
 // ----------------------------------  +- Page 1 -+
 
 .App {
@@ -81,7 +96,8 @@
   left: 0px;
   height: 100vh;
   overflow: scroll;
-  scroll-snap-type: y mandatory;
+  // scroll-snap-type: y mandatory;
+  // scroll-snap-type: y;
 
   .page {
     position: relative;
@@ -142,7 +158,7 @@
     //   height: 120vh;
     // }
 
-    @keyframes fade {
+    @keyframes intro-fade-in {
       from {
         color: white;
       }
@@ -179,19 +195,19 @@
 
       #page-1-block-1 {
         color: white;
-        animation: fade 2s;
+        animation: intro-fade-in 2s;
         animation-delay: $page-fade + 1.5s;
         animation-fill-mode: forwards;
       }
       #page-1-block-2 {
         color: white;
-        animation: fade 2s;
+        animation: intro-fade-in 2s;
         animation-delay: $page-fade + 3s;
         animation-fill-mode: forwards;
       }
       #page-1-block-3 {
         color: white;
-        animation: fade 2s;
+        animation: intro-fade-in 2s;
         animation-delay: $page-fade + 4.5s;
         animation-fill-mode: forwards;
       }
