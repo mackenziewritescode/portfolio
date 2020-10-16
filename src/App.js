@@ -18,8 +18,6 @@ function App() {
   const ref = useRef();
   const isIntersecting = useIntersect(ref, "-50%")
 
-
-
   return (
     <div className="App">
       {/* --------------------------------------------------  PAGE 1  */}
