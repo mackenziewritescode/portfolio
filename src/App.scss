@@ -148,6 +148,24 @@
       }
     }
   }
+  @keyframes arrow-bounce {
+    from {
+      bottom: 16px;
+      opacity: 0.4;
+    }
+    to {
+      bottom: 10px;
+      opacity: 0.3;
+    }
+  }
+  @keyframes arrow-bounce-solid {
+    from {
+      bottom: 16px;
+    }
+    to {
+      bottom: 10px;
+    }
+  }
 
   #page-1 {
     background: red;
@@ -275,16 +293,6 @@
         opacity: 0.4;
       }
     }
-    @keyframes arrow-bounce {
-      from {
-        bottom: 16px;
-        opacity: 0.4;
-      }
-      to {
-        bottom: 10px;
-        opacity: 0.3;
-      }
-    }
   }
 
   // ------------------------------------ Page 2 -+
@@ -298,8 +306,10 @@
 
     #page-2-text-wrap {
       margin-top: 15vh;
+      width: 100%;
       background: black;
       padding: 40px 0;
+
       p {
         color: white;
         font-size: 90px;
@@ -322,11 +332,26 @@
           letter-spacing: -2px;
         }
       }
+
+      .main-text {
+        position: relative;
+        transform: translateX(100vw);
+        opacity: 0;
+      }
     }
     #page-2-block-4 {
       @media only screen and (max-width: 1200px) {
         font-size: 28px;
       }
+    }
+    .arrows {
+      animation-name: arrow-bounce-solid;
+      animation-duration: 1000ms;
+      animation-delay: 0;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-fill-mode: forwards;
+      animation-direction: alternate;
     }
     .arrow {
       color: white;

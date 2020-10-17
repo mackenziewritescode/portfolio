@@ -1,7 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useRef } from "react";
 import "./App.scss";
-import useIntersect from "./useIntersect";
+// import useIntersect from "./useIntersect";
 import Obfuscate from "react-obfuscate";
+import { gsap } from "gsap";
+import { useIntersection } from "react-use"
 import { MdEmail } from "react-icons/md";
 import { FaLinkedin } from "react-icons/fa";
 import { BsChevronCompactDown } from "react-icons/bs";
@@ -15,14 +17,42 @@ const arrows = (
 
 function App() {
 
-  const ref = useRef();
-  const isIntersecting = useIntersect(ref, "-50%")
+  const ref = useRef(null);
+  const intersection = useIntersection(ref, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.7
+  })
+
+  const slideIn = (e) => {
+    gsap.to(e, {
+      duration: 2,
+      x: 0,
+      opacity: 1,
+      ease: "power4.out",
+      stagger: 1
+    })
+  }
+
+  const slideOut = (e) => {
+    gsap.to(e, {
+      duration: 1,
+      x: "-100vw",
+      opacity: 0,
+      ease: "power4.out",
+    })
+  }
+  
+  // has the intersection threshold been met yet? if so, slide in.
+  intersection && intersection.intersectionRatio > 0.7
+  ? slideIn(".slide")
+  : slideOut(".slide")
 
   return (
     <div className="App">
       {/* --------------------------------------------------  PAGE 1  */}
       <div id="page-1" className="page">
-        <div id="page-1-cover" className="slide-right">
+        <div id="page-1-cover">
         </div>
         <div className="main-text" id="page-1-main-text">
           <p id="page-1-block-1">Hello.</p>
@@ -37,28 +67,16 @@ function App() {
         
       </div>
       {/* ------------------------------------------------  PAGE 2  */}
-      {/* <div id="page-2" className="page" ref={ref} >
-        {isIntersecting ? ( <div id="page-2-text-wrap" className="slide-animation">
-          <p className="main-text" id="page-2-block-1">
-            I specialize in front-end web development.
-          </p>
-          <p className="main-text" id="page-2-block-2">
-            (I make websites.)
-          </p>
-          <p className="main-text" id="page-2-block-3">
-            Like this one!
-          </p>
-        </div> ) : null } */}
 
         <div id="page-2" className="page"  >
-        <div id="page-2-text-wrap" ref={ref} className={isIntersecting ?"slide-animation" : null}>
-          <p className="main-text" id="page-2-block-1">
+        <div id="page-2-text-wrap" ref={ref} >
+          <p className="main-text slide" id="page-2-block-1">
             I specialize in front-end web development.
           </p>
-          <p className="main-text" id="page-2-block-2">
+          <p className="main-text slide" id="page-2-block-2" >
             (I make websites.)
           </p>
-          <p className="main-text" id="page-2-block-3">
+          <p className="main-text slide" id="page-2-block-3">
             Like this one!
           </p>
         </div>
