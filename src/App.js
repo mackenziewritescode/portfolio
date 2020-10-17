@@ -23,6 +23,18 @@ function App() {
     rootMargin: "0px",
     threshold: 0.7
   })
+  const divRef = useRef(null);
+  const divIntersection = useIntersection(divRef, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.3
+  })
+  const bottomRef = useRef(null);
+  const bottomIntersection = useIntersection(bottomRef, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1
+  })
 
   const slideIn = (e) => {
     gsap.to(e, {
@@ -33,7 +45,6 @@ function App() {
       stagger: 1
     })
   }
-
   const slideOut = (e) => {
     gsap.to(e, {
       duration: 1,
@@ -42,11 +53,61 @@ function App() {
       ease: "power4.out",
     })
   }
+
+  const fadeIn = (e) => {
+    gsap.to(e, {
+      duration: 1,
+      opacity: 1,
+      ease: "power4.out"
+    })
+  }
+  const fadeOut = (e) => {
+    gsap.to(e, {
+      duration: 1,
+      opacity: 0,
+      ease: "power4.out",
+    })
+  }
+
+  const fadeDown = (e) => {
+    gsap.to(e, {
+      duration: 1,
+      y: 0,
+      opacity: 1,
+      delay: 3.5,
+      ease: "power4.out",
+      stagger: 0.5
+    })
+  }
+  const fadeUp = (e) => {
+    gsap.to(e, {
+      duration: 1,
+      y: 0,
+      opacity: 0,
+      ease: "power4.out",
+    })
+  }
   
-  // has the intersection threshold been met yet? if so, slide in.
+  // has the intersection threshold been met yet? if so, animate.
   intersection && intersection.intersectionRatio > 0.7
   ? slideIn(".slide")
   : slideOut(".slide")
+
+  if (intersection && intersection.intersectionRatio > 0.7) {
+    slideIn(".slide");
+    fadeDown(".fade-down");
+  } else {
+    slideOut(".slide");
+    fadeUp(".fade-down");
+  }
+
+  divIntersection && divIntersection.intersectionRatio > 0.3
+  ? fadeIn(".fade")
+  : fadeOut(".fade")
+
+  bottomIntersection && bottomIntersection.intersectionRatio > 0.1
+  ? fadeDown(".fade-down")
+  : fadeUp(".fade-down")
 
   return (
     <div className="App">
@@ -68,23 +129,30 @@ function App() {
       </div>
       {/* ------------------------------------------------  PAGE 2  */}
 
-        <div id="page-2" className="page"  >
-        <div id="page-2-text-wrap" ref={ref} >
-          <p className="main-text slide" id="page-2-block-1">
-            I specialize in front-end web development.
-          </p>
-          <p className="main-text slide" id="page-2-block-2" >
-            (I make websites.)
-          </p>
-          <p className="main-text slide" id="page-2-block-3">
-            Like this one!
-          </p>
-        </div>
+      <div id="page-2" className="page" ref={divRef} >
+          <div id="page-2-text-wrap" ref={ref} className="fade" >
+            <p className="main-text slide" id="page-2-block-1">
+              I specialize in front-end web development.
+            </p>
+            <p className="main-text slide" id="page-2-block-2" >
+              (I make websites.)
+            </p>
+            <p className="main-text slide" id="page-2-block-3">
+              Like this one!
+            </p>
+          </div>
         
-        <p className="bottom-text" id="page-2-block-4">
-            check out some of my recent projects
+        
+          <p className="bottom-text fade-down" id="page-2-block-4" ref={bottomRef}>
+              check out some of my recent projects
           </p>
-        {arrows}
+          <div className="arrows fade-down">
+            <BsChevronCompactDown className="arrow" /> 
+            <BsChevronCompactDown className="arrow" /> 
+            <BsChevronCompactDown className="arrow" />
+          </div>
+        
+        
       </div>
       {/* ------------------------------------------------  PAGE 3  */}
       <div id="page-3" className="page">

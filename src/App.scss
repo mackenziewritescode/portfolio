@@ -96,7 +96,7 @@
   left: 0px;
   height: 100vh;
   overflow: scroll;
-  // scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   // scroll-snap-type: y;
 
   .page {
@@ -339,6 +339,12 @@
         opacity: 0;
       }
     }
+
+    .fade-down {
+      transform: translateY(20px);
+      opacity: 0;
+    }
+
     #page-2-block-4 {
       @media only screen and (max-width: 1200px) {
         font-size: 28px;
