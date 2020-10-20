@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./App.scss";
 // import useIntersect from "./useIntersect";
 import Obfuscate from "react-obfuscate";
@@ -16,9 +16,10 @@ const arrows = (
 );
 
 function App() {
+  const [page2Animation, setPage2Animation] = useState(0)
 
-  const ref = useRef(null);
-  const intersection = useIntersection(ref, {
+  const page2Ref = useRef(null);
+  const page2Intersection = useIntersection(page2Ref, {
     root: null,
     rootMargin: "0px",
     threshold: 0.7
@@ -33,26 +34,94 @@ function App() {
       stagger: 1
     })
   }
-
   const slideOut = (e) => {
     gsap.to(e, {
       duration: 1,
       x: "-100vw",
       opacity: 0,
+      ease: "power2.out",
+    })
+  }
+
+  const fadeIn = (e) => {
+    gsap.to(e, {
+      duration: 1,
+      opacity: 1,
+      x: 0,
+      y: 0,
+      ease: "power4.out"
+    })
+  }
+  const fadeOut = (e) => {
+    gsap.to(e, {
+      duration: 1,
+      opacity: 0,
       ease: "power4.out",
     })
   }
+
+  const fadeDown = (e) => {
+    gsap.to(e, {
+      duration: 1,
+      y: 0,
+      opacity: 1,
+      delay: 3.5,
+      ease: "power4.out",
+      stagger: 0.5
+    })
+  }
+  const fadeUp = (e) => {
+    gsap.to(e, {
+      duration: 1,
+      y: "-20",
+      opacity: 0,
+      ease: "power4.out",
+    })
+    console.log("fading away~")
+  }
+
+    if (page2Animation === 0) {
+      if (page2Intersection && page2Intersection.intersectionRatio > 0.7) {
+        fadeIn("#page-2-text-wrap")
+        slideIn(".page-2-text");
+        fadeDown(".page-2-bottom");
+        setPage2Animation(1)
+      }
+    }
+
+    if (page2Animation === 1) {
+      if (page2Intersection && page2Intersection.intersectionRatio < 0.7) {
+        fadeOut("#page-2-text-wrap")
+        slideOut(".page-2-text");
+        fadeUp(".page-2-bottom");
+        setPage2Animation(2)
+      }
+    }
+
+    if(page2Animation >= 2) {
+      if (page2Intersection && page2Intersection.intersectionRatio > 0.7) {
+      fadeIn("#page-2-text-wrap")
+      fadeIn(".page-2-text");
+      fadeIn(".page-2-bottom");
+      } 
+      else {
+      fadeOut("#page-2-text-wrap")
+      slideOut(".page-2-text");
+      fadeUp(".page-2-bottom");
+      } 
+    }
+
   
-  // has the intersection threshold been met yet? if so, slide in.
-  intersection && intersection.intersectionRatio > 0.7
-  ? slideIn(".slide")
-  : slideOut(".slide")
+
+  // bottomIntersection && bottomIntersection.intersectionRatio > 0.1
+  // ? fadeDown(".page-2-bottom")
+  // : fadeUp(".page-2-bottom")
 
   return (
     <div className="App">
       {/* --------------------------------------------------  PAGE 1  */}
       <div id="page-1" className="page">
-        <div id="page-1-cover">
+        {/* <div id="page-1-cover">
         </div>
         <div className="main-text" id="page-1-main-text">
           <p id="page-1-block-1">Hello.</p>
@@ -62,29 +131,35 @@ function App() {
         <p className="bottom-text" id="page-1-block-4">
           Scroll down to learn more
         </p>
-        {arrows}
+        {arrows} */}
         
         
       </div>
       {/* ------------------------------------------------  PAGE 2  */}
 
-        <div id="page-2" className="page"  >
-        <div id="page-2-text-wrap" ref={ref} >
-          <p className="main-text slide" id="page-2-block-1">
-            I specialize in front-end web development.
-          </p>
-          <p className="main-text slide" id="page-2-block-2" >
-            (I make websites.)
-          </p>
-          <p className="main-text slide" id="page-2-block-3">
-            Like this one!
-          </p>
-        </div>
+      <div id="page-2" className="page" ref={page2Ref} >
+
+          <div id="page-2-text-wrap" >
+            <p className="main-text page-2-text" id="page-2-block-1">
+              I specialize in front-end web development.
+            </p>
+            <p className="main-text page-2-text" id="page-2-block-2" >
+              (I make websites.)
+            </p>
+            <p className="main-text page-2-text" id="page-2-block-3">
+              Like this one!
+            </p>
+          </div>
         
-        <p className="bottom-text" id="page-2-block-4">
-            check out some of my recent projects
+          <p className="bottom-text page-2-bottom" >
+              check out some of my recent projects
           </p>
-        {arrows}
+          <div className="arrows page-2-bottom">
+            <BsChevronCompactDown className="arrow" /> 
+            <BsChevronCompactDown className="arrow" /> 
+            <BsChevronCompactDown className="arrow" />
+          </div>
+        
       </div>
       {/* ------------------------------------------------  PAGE 3  */}
       <div id="page-3" className="page">
