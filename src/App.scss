@@ -309,6 +309,7 @@
       width: 100%;
       background: black;
       padding: 40px 0;
+      opacity: 0;
 
       p {
         color: white;
@@ -335,21 +336,19 @@
 
       .main-text {
         position: relative;
-        transform: translateX(100vw);
+        transform: translateX(-100vw);
         opacity: 0;
       }
     }
 
-    .fade-down {
+    .page-2-bottom {
+      @media only screen and (max-width: 1200px) {
+        font-size: 28px;
+      }
       transform: translateY(20px);
       opacity: 0;
     }
 
-    #page-2-block-4 {
-      @media only screen and (max-width: 1200px) {
-        font-size: 28px;
-      }
-    }
     .arrows {
       animation-name: arrow-bounce-solid;
       animation-duration: 1000ms;
