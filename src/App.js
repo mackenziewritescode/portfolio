@@ -16,8 +16,9 @@ const arrows = (
 );
 
 function App() {
-  const [page2Animation, setPage2Animation] = useState(0)
-  const [page3Animation, setPage3Animation] = useState(0)
+  const [page2Animation, setPage2Animation] = useState(false)
+  const [page3Animation, setPage3Animation] = useState(false)
+  const [page4Animation, setPage4Animation] = useState(false)
 
   const page2Ref = useRef(null);
   const page2Intersection = useIntersection(page2Ref, {
@@ -34,10 +35,18 @@ function App() {
     threshold: page3Threshold
   })
 
+  const page4Threshold = 0.5;
+  const page4Ref = useRef(null);
+  const page4Intersection = useIntersection(page4Ref, {
+    root: null,
+    rootMargin: "0px",
+    threshold: page4Threshold
+  })
+
   // ---------------------------- +-- Page 2 Animations --+
   const slideIn = (e) => {
     gsap.to(e, {
-      duration: 2,
+      duration: 1.5,
       x: 0,
       opacity: 1,
       ease: "power4.out",
@@ -92,27 +101,17 @@ function App() {
   // ---------------------------- +-- Page 2 Animation Conditions --+
 
   // if page2 is loading for the first time, run the long animation
-  if (page2Animation === 0) {
+  if (!page2Animation) {
     if (page2Intersection && page2Intersection.intersectionRatio > 0.7) {
       fadeIn("#page-2-text-wrap")
       slideIn(".page-2-text");
       fadeDown(".page-2-bottom");
-      setPage2Animation(1)
-    }
-  }
-
-  // page two animated for the first time, and now it's fading out for the first time. This is done so the first animation isn't interrupted.
-  if (page2Animation === 1) {
-    if (page2Intersection && page2Intersection.intersectionRatio < 0.7) {
-      fadeOut("#page-2-text-wrap")
-      slideOut(".page-2-text");
-      fadeUp(".page-2-bottom");
-      setPage2Animation(2)
+      setTimeout(() => setPage2Animation(true), 4500)
     }
   }
 
   // every subsequent time page 2 animates, it does so quickly
-  if(page2Animation >= 2) {
+  if(page2Animation) {
     if (page2Intersection && page2Intersection.intersectionRatio > 0.7) {
     fadeIn("#page-2-text-wrap")
     fadeIn(".page-2-text");
@@ -151,6 +150,7 @@ function App() {
       x: 0,
       opacity: 1,
       ease: "power4.out",
+      stagger: 0.1
     })
   }
 
@@ -163,28 +163,29 @@ function App() {
     })
   }
 
-  // ---------------------------- +-- Page 3 Animation Conditions --+
+  const fadeInDelay = (e) => {
+    gsap.to(e, {
+      duration: 1,
+      opacity: 1,
+      x: 0,
+      y: 0,
+      delay: 2.2,
+      ease: "power4.out"
+    })
+  }
 
-  if (page3Animation === 0) {
+  // ---------------------------- +-- Page 3 Animation Conditions --+
+  
+  if (!page3Animation) {
     if (page3Intersection && page3Intersection.intersectionRatio > page3Threshold) {
       projectSlideIn(".project")
       slowFadeIn("#page-3-title")
-      fadeIn(".page-3-bottom")
-      setTimeout(setPage3Animation(1), 3000)
-      console.log(page3Animation);
-    }
-  }
-  
-  if (page3Animation === 1) {
-    if (page3Intersection && page3Intersection.intersectionRatio < page3Threshold) {
-      projectSlideOut(".project");
-      fadeOut("#page-3-title")
-      fadeOut(".page-3-bottom")
-      setPage3Animation(2);
+      fadeInDelay(".page-3-bottom")
+      setTimeout(() => setPage3Animation(true), 3000)
     }
   }
 
-  if(page3Animation >= 2) {
+  if(page3Animation) {
     if (page3Intersection && page3Intersection.intersectionRatio > page3Threshold) {
       projectSlideInFast(".project")
       slowFadeIn("#page-3-title")
@@ -193,6 +194,82 @@ function App() {
       projectSlideOut(".project");
       fadeOut("#page-3-title")
       fadeOut(".page-3-bottom")
+    }
+  }
+
+  // ----------------------------------------- +-- Page 4 Animations --+
+
+  const fadeInStagger = (e) => {
+    gsap.to(e, {
+      duration: 1.5,
+      opacity: 1,
+      x: 0,
+      y: 0,
+      ease: "power4.out",
+      stagger: 1,
+    })
+  }
+
+  const fadeInStaggerFast = (e) => {
+    gsap.to(e, {
+      duration: 1,
+      opacity: 1,
+      x: 0,
+      y: 0,
+      ease: "power4.out",
+      stagger: 0.1
+    })
+  }
+
+  const scaleUp = (e) => {
+    gsap.to(e, {
+      duration: 0.5,
+      opacity: 1,
+      scale: 1,
+      delay: 3,
+      ease: "power4.out",
+      stagger: 0.5,
+    })
+  }
+
+  const scaleUpFast = (e) => {
+    gsap.to(e, {
+      duration: 0.5,
+      opacity: 1,
+      scale: 1,
+      delay: 0.2,
+      ease: "power4.out",
+      // stagger: 0.1
+    })
+  }
+
+  const scaleDown = (e) => {
+    gsap.to(e, {
+      duration: 0.5,
+      opacity: 0,
+      scale: 0.1,
+      ease: "power4.out",
+    })
+  }
+
+  // ------------------------------- +-- Page 4 Animation Conditions --+
+
+  if (!page4Animation) {
+    if (page4Intersection && page4Intersection.intersectionRatio > page4Threshold) {
+      fadeInStagger(".page-4-text")
+      scaleUp(".contact-circle")
+      setTimeout(() => setPage4Animation(true), 5000)
+    }
+  }
+
+  if (page4Animation) {
+    if (page4Intersection && page4Intersection.intersectionRatio > page4Threshold) {
+      fadeInStaggerFast(".page-4-text")
+      scaleUpFast(".contact-circle")
+      
+    } else {
+      fadeOut(".page-4-text")
+      scaleDown(".contact-circle")
     }
   }
 
@@ -247,7 +324,7 @@ function App() {
         <div className="project">
             <a
               className="project-img-link"
-              href="http://www.sunkenworld.com/"
+              href="http://www.sunkenworld.com/calculator"
               alt=""
             >
               <img alt="Clever Calculator" src={require("./calculator.jpg")} width="300" height="200"></img>
@@ -258,7 +335,7 @@ function App() {
             </p>
             <a
               className="project-link"
-              href="http://www.sunkenworld.com/"
+              href="http://www.sunkenworld.com/calculator"
               alt=""
             >
               Visit
@@ -274,7 +351,7 @@ function App() {
           <div className="project">
             <a
               className="project-img-link"
-              href="http://www.sunkenworld.com/"
+              href="http://www.sunkenworld.com/drum-machine"
               alt=""
             >
               <img alt="Beat Machine" src={require("./beat-machine.jpg")} width="300" height="200"></img>
@@ -285,7 +362,7 @@ function App() {
             </p>
             <a
               className="project-link"
-              href="http://www.sunkenworld.com/"
+              href="http://www.sunkenworld.com/drum-machine"
               alt=""
             >
               Visit
@@ -301,7 +378,7 @@ function App() {
           <div className="project">
             <a
               className="project-img-link"
-              href="http://www.sunkenworld.com/"
+              href="http://www.sunkenworld.com/infinite-photos"
               alt=""
             >
               <img alt="Infinite Photos" src={require("./infinite-photos.jpg")} width="300" height="200"></img>
@@ -312,7 +389,7 @@ function App() {
             </p>
             <a
               className="project-link"
-              href="http://www.sunkenworld.com/"
+              href="http://www.sunkenworld.com/infinite-photos"
               alt=""
             >
               Visit
@@ -328,7 +405,7 @@ function App() {
           <div className="project">
             <a
               className="project-img-link"
-              href="http://www.sunkenworld.com/"
+              href="http://www.sunkenworld.com/interval-timer"
               alt=""
             >
               <img alt="Interval Timer" src={require("./interval-timer.jpg")} width="300" height="200"></img>
@@ -339,7 +416,7 @@ function App() {
             </p>
             <a
               className="project-link"
-              href="http://www.sunkenworld.com/"
+              href="http://www.sunkenworld.com/interval-timer"
               alt=""
             >
               Visit
@@ -355,7 +432,7 @@ function App() {
           <div className="project">
             <a
               className="project-img-link"
-              href="http://www.sunkenworld.com/"
+              href="http://www.sunkenworld.com/markdown-app"
               alt=""
             >
               <img alt="" src={require("./markdown-preview.jpg")} width="300" height="200"></img>
@@ -366,7 +443,7 @@ function App() {
             </p>
             <a
               className="project-link"
-              href="http://www.sunkenworld.com/"
+              href="http://www.sunkenworld.com/markdown-app"
               alt=""
             >
               Visit
@@ -387,11 +464,11 @@ function App() {
         </div>
       </div>
       {/* ------------------------------------------------  PAGE 4  */}
-      <div id="page-4" className="page">
+      <div id="page-4" className="page" ref={page4Ref}>
         <p className="main-text page-4-text" id="page-4-block-1">
           You can see all the code for each project, along with detailed
           descriptions, on my{" "}
-          <a href="http://www.sunkenworld.com/" alt="">
+          <a href="https://github.com/mackenziewritescode" alt="">
             GitHub
           </a>
           .
@@ -403,19 +480,21 @@ function App() {
           Get in touch:
         </p>
         <div id="contact-wrap">
-          <Obfuscate email="mackenzie.charlton@gmail.com" aria-label="Email" className="link">
-            <div className="contact-circle" id="contact-email">
-              <MdEmail className="contact-icon" />
-            </div>
+          <Obfuscate 
+            email="mackenzie.charlton@gmail.com" 
+            aria-label="Email" 
+            className="contact-circle" 
+            id="contact-email"
+          >
+            <MdEmail className="contact-icon" />
           </Obfuscate>
-          <a
+          <a 
+            className="contact-circle" 
+            id="contact-linkedin" 
             href="https://www.linkedin.com/in/mackenzie-charlton-702517169/"
             alt=""
-            className="link"
           >
-            <div className="contact-circle" id="contact-linkedin">
-              <FaLinkedin className="contact-icon" />
-            </div>
+            <FaLinkedin className="contact-icon" />
           </a>
         </div>
         <footer>
@@ -429,6 +508,19 @@ function App() {
               React
             </a>
             .
+            Background photos:{" "}
+            <a className="footer-link" href="https://unsplash.com/photos/HyZaYuPXyEo">
+              1
+            </a> |{" "}
+            <a className="footer-link" href="https://unsplash.com/photos/RVX2STx44UI">
+              2
+            </a> |{" "}
+            <a className="footer-link" href="https://unsplash.com/photos/OWsdJ-MllYA">
+              3
+            </a> |{" "}
+            <a className="footer-link" href="https://unsplash.com/photos/5ULk8EgE8tg">
+              4
+            </a>
           </p>
         </footer>
       </div>

@@ -158,9 +158,6 @@
     background: url(images/forest-3.jpg) no-repeat center center fixed;
     background-size: cover;
     $page-fade: 1s;
-    // @media (max-height: 1000px) {
-    //   height: 120vh;
-    // }
 
     @keyframes intro-fade-in {
       from {
@@ -321,7 +318,7 @@
 
       .main-text {
         position: relative;
-        transform: translateX(-100vw);
+        transform: translateX(-15vw);
         opacity: 0;
       }
     }
@@ -408,10 +405,10 @@
         transition: 0.2s;
       }
       img:hover {
-        border: 4px solid $hover;
+        border: 2px solid $hover;
       }
       img:active {
-        border: 4px solid rgb(252, 255, 88);
+        border: 2px solid rgb(252, 255, 88);
       }
 
       .project-description {
@@ -483,6 +480,7 @@
       max-width: 1400px;
       letter-spacing: -3px;
       line-height: 60px;
+      opacity: 0;
 
       @include max-900 {
         font-size: 48px;
@@ -495,6 +493,10 @@
         @include link;
         // color: rgb(255, 223, 81);
         color: rgb(255, 240, 174);
+        transition: 0.5s;
+      }
+      a:hover {
+        color: black;
       }
     }
 
@@ -525,6 +527,8 @@
       height: $diameter;
       border-radius: $diameter / 2;
       background: rgb(255, 225, 91);
+      transform: scale(0.1);
+      opacity: 0;
 
       @include max-900 {
         width: $diameter / 1.6;
@@ -532,21 +536,40 @@
         font-size: $icon-height / 1.6;
       }
     }
-    .contact-circle:hover {
-      background: olivedrab;
-    }
 
     .contact-icon {
       @include link;
       color: white;
       margin-top: $diameter / 2 - $icon-height / 2;
+      transition: 0.5s;
 
       @include max-900 {
         margin-top: $diameter / 3.2 - $icon-height / 3.2;
       }
     }
-    .link {
-      border-radius: 80px;
+
+    .contact-circle:hover .contact-icon {
+      transform: scale(1.3);
+    }
+
+    .contact-circle:hover {
+      background-image: linear-gradient(
+        to right,
+        #ffe15b 0%,
+        #ffe15b 33%,
+        #5fff94 33%,
+        #5fff94 67%,
+        #41d3ff 67%,
+        #41d3ff 100%
+      );
+      animation: circle-animate 1.7s linear infinite;
+      transition: 1s;
+    }
+
+    @keyframes circle-animate {
+      to {
+        background-position: 26vw;
+      }
     }
 
     footer {
