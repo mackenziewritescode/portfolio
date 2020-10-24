@@ -70,21 +70,6 @@
   box-sizing: border-box;
 }
 
-// ----------------------------------  +- Intersection Animations -+
-
-.slide-animation {
-  animation: slide-animation 1s ease-in-out;
-  animation-fill-mode: forwards;
-}
-@keyframes background-slide {
-  from {
-    background: red;
-  }
-  to {
-    background: yellow;
-  }
-}
-
 // ----------------------------------  +- Page 1 -+
 
 .App {
@@ -106,6 +91,7 @@
     height: 100vh;
     min-height: 600px;
     scroll-snap-align: start;
+    margin: 0;
   }
 
   .main-text {
@@ -299,7 +285,6 @@
 
   #page-2 {
     color: white;
-    margin: 0;
     background: rgb(117, 227, 255);
     background: url(images/sea-2.jpg) no-repeat center center fixed;
     background-size: cover;
@@ -366,23 +351,31 @@
 
   // ------------------------------------ Page 3 -- Projects -+
 
+  $hover: rgb(32, 230, 98);
+
   #page-3 {
-    background: firebrick;
+    background: rgb(114, 114, 114);
     height: auto;
     min-height: 100vh;
+    color: white;
+    background: url(images/mountain-3.jpg) no-repeat center center fixed;
+    background-size: cover;
+    border-top: 4px solid white;
   }
 
   #page-3-title {
     @include center-text;
     font-family: "HelveticaBlack", sans-serif;
-    font-size: 60px;
-    margin: 10vh 0 40px;
+    font-size: 90px;
+    margin: 5vh 0 20px;
+    opacity: 0;
   }
 
   #project-wrap {
     display: block;
     width: 80vw;
-    margin: 0 auto 100px;
+    max-width: 1200px;
+    margin: 0 auto 60px;
     text-align: center;
     @include max-400 {
       width: 100vw;
@@ -390,14 +383,17 @@
 
     .project {
       display: inline-block;
-      margin: 30px;
+      margin: 20px 40px;
       width: 300px;
+      transform: translateX(-40px);
+      opacity: 0;
 
       .project-img-link {
         display: block;
         width: 300px;
         height: 200px;
-        background: black;
+        background: $hover;
+        border-radius: 20px;
       }
 
       .project-title {
@@ -406,17 +402,64 @@
         margin: 10px;
       }
 
+      img {
+        border-radius: 20px;
+        border: 2px solid white;
+        transition: 0.2s;
+      }
+      img:hover {
+        border: 4px solid $hover;
+      }
+      img:active {
+        border: 4px solid rgb(252, 255, 88);
+      }
+
       .project-description {
+        font-size: 16px;
+        height: 60px;
         margin-bottom: 10px;
+        letter-spacing: 1px;
       }
 
       .project-link,
       .project-github {
         @include link;
-        margin: 0 10px;
+        margin: 0 14px;
         font-family: "HelveticaBold";
         font-size: 18px;
+        letter-spacing: 1px;
+        display: inline-block;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 5px 0;
+        width: 100px;
+        border-radius: 10px;
+        border: 1px solid white;
+        transition: 0.5s;
       }
+      .project-link:hover,
+      .project-github:hover {
+        background: $hover;
+        color: black;
+      }
+      .project-link:active,
+      .project-github:active {
+        background: rgb(252, 255, 88);
+      }
+    }
+  }
+
+  .page-3-bottom {
+    animation-name: arrow-bounce-solid;
+    animation-duration: 1000ms;
+    animation-delay: 0;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-fill-mode: forwards;
+    animation-direction: alternate;
+    opacity: 0;
+
+    .arrow {
+      color: white;
     }
   }
 
@@ -425,21 +468,43 @@
     $diameter: 250px;
     $icon-height: 120px;
 
+    background: rgb(120, 156, 129);
+    height: auto;
+    min-height: 100vh;
+    color: white;
+    background: url(images/city-3.jpg) no-repeat center center fixed;
+    background-size: cover;
+    border-top: 4px solid white;
+
+    .page-4-text {
+      @include center-text;
+      font-size: 60px;
+      width: 80vw;
+      max-width: 1400px;
+      letter-spacing: -3px;
+      line-height: 60px;
+
+      @include max-900 {
+        font-size: 48px;
+      }
+    }
+
     #page-4-block-1 {
       margin-top: 10vh;
       a {
         @include link;
-        color: orangered;
+        // color: rgb(255, 223, 81);
+        color: rgb(255, 240, 174);
       }
     }
 
     #page-4-block-2 {
-      margin-top: 100px;
+      margin-top: 60px;
     }
 
     #page-4-block-3 {
       @include center-text;
-      margin-top: 100px;
+      margin-top: 60px;
     }
 
     #contact-wrap {
@@ -459,7 +524,7 @@
       width: $diameter;
       height: $diameter;
       border-radius: $diameter / 2;
-      background: orange;
+      background: rgb(255, 225, 91);
 
       @include max-900 {
         width: $diameter / 1.6;
@@ -467,6 +532,10 @@
         font-size: $icon-height / 1.6;
       }
     }
+    .contact-circle:hover {
+      background: olivedrab;
+    }
+
     .contact-icon {
       @include link;
       color: white;
@@ -476,15 +545,18 @@
         margin-top: $diameter / 3.2 - $icon-height / 3.2;
       }
     }
+    .link {
+      border-radius: 80px;
+    }
 
     footer {
       @include center-text;
       position: absolute;
-      bottom: 18px;
+      bottom: 30px;
 
       a {
         @include link;
-        color: orangered;
+        color: rgb(255, 240, 174);
       }
     }
   }
