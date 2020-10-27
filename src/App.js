@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import "./App.scss";
-// import useIntersect from "./useIntersect";
 import Obfuscate from "react-obfuscate";
 import { gsap } from "gsap";
 import { useIntersection } from "react-use"
@@ -17,7 +16,7 @@ const arrows = (
 
 function App() {
   const [page2Animation, setPage2Animation] = useState(false)
-  const [page3Animation, setPage3Animation] = useState(false)
+  const [page3Animation, setPage3Animation] = useState("initial")
   const [page4Animation, setPage4Animation] = useState(false)
 
   const page2Ref = useRef(null);
@@ -176,24 +175,30 @@ function App() {
 
   // ---------------------------- +-- Page 3 Animation Conditions --+
   
-  if (!page3Animation) {
+  if (page3Animation === "initial") {
     if (page3Intersection && page3Intersection.intersectionRatio > page3Threshold) {
       projectSlideIn(".project")
       slowFadeIn("#page-3-title")
       fadeInDelay(".page-3-bottom")
-      setTimeout(() => setPage3Animation(true), 3000)
+      setTimeout(() => setPage3Animation("visible"), 3000)
     }
   }
 
-  if(page3Animation) {
-    if (page3Intersection && page3Intersection.intersectionRatio > page3Threshold) {
-      projectSlideInFast(".project")
-      slowFadeIn("#page-3-title")
-      fadeIn(".page-3-bottom")
-    } else {
+  if(page3Animation === "visible") {
+    if (page3Intersection.intersectionRatio < page3Threshold) {
       projectSlideOut(".project");
       fadeOut("#page-3-title")
       fadeOut(".page-3-bottom")
+      setTimeout(() => setPage3Animation("invisible"), 1000)
+    } 
+  }
+
+  if(page3Animation === "invisible") {
+    if (page3Intersection.intersectionRatio > page3Threshold) {
+      projectSlideInFast(".project")
+      fadeIn("#page-3-title")
+      fadeIn(".page-3-bottom")
+      setTimeout(() => setPage3Animation("visible"), 1000)
     }
   }
 
@@ -239,7 +244,6 @@ function App() {
       scale: 1,
       delay: 0.2,
       ease: "power4.out",
-      // stagger: 0.1
     })
   }
 
@@ -318,9 +322,9 @@ function App() {
         
       </div>
       {/* ------------------------------------------------  PAGE 3  */}
-      <div id="page-3" className="page" >
+      <div id="page-3" className="page" ref={page3Ref}>
         <h2 id="page-3-title">Projects</h2>
-        <div id="project-wrap" ref={page3Ref}>
+        <div id="project-wrap">
         <div className="project">
             <a
               className="project-img-link"

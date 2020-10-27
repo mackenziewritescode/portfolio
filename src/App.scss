@@ -541,7 +541,7 @@
       @include link;
       color: white;
       margin-top: $diameter / 2 - $icon-height / 2;
-      transition: 0.5s;
+      transition: 0.3s;
 
       @include max-900 {
         margin-top: $diameter / 3.2 - $icon-height / 3.2;
