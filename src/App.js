@@ -485,7 +485,7 @@ function App() {
         </p>
         <div id="contact-wrap">
           <Obfuscate 
-            email="mackenzie.charlton@gmail.com" 
+            email="xxxxxxxxxx@gmail.com" 
             aria-label="Email" 
             className="contact-circle" 
             id="contact-email"
