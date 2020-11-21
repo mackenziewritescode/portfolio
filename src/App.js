@@ -382,7 +382,7 @@ function App() {
           <div className="project">
             <a
               className="project-img-link"
-              href="http://www.sunkenworld.com/infinite-photos"
+              href="http://www.sunkenworld.com/photo-search"
               alt=""
             >
               <img alt="Infinite Photos" src={require("./infinite-photos.jpg")} width="300" height="200"></img>
@@ -393,7 +393,7 @@ function App() {
             </p>
             <a
               className="project-link"
-              href="http://www.sunkenworld.com/infinite-photos"
+              href="http://www.sunkenworld.com/photo-search"
               alt=""
             >
               Visit
