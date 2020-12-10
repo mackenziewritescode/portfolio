@@ -13,6 +13,7 @@
     "react-icons": "^3.11.0",
     "react-obfuscate": "^3.6.8",
     "react-scripts": "3.4.3",
+    "react-update-url-on-scroll": "^3.5.0",
     "react-use": "^15.3.4"
   },
   "scripts": {
