@@ -56,3 +56,4 @@ export default function useIntersection(ref, page, threshold) {
 }
 ```
 This basically takes the props we just defined and returns a `true/false` boolian, as well is replacing the browser's History state, appending "#page-whatever" to the URL.
+
