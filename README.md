@@ -67,27 +67,27 @@ useEffect(() => {
       // initial full animation:
       if (page2Count === 0) {
         setInProgress(true);
-        fadeIn("#page-2-text-wrap");
-        slideIn(".page-2-text");
-        fadeDown(".page-2-bottom");
+        <INITIAL ANIMATIONS>
         setPage2Count(1);
         setTimeout(() => setInProgress(false), 4500);
       }
       // short animation:
       if (page2Count > 0) {
         setInProgress(true);
-        fadeIn("#page-2-text-wrap");
-        fadeIn(".page-2-text");
-        fadeIn(".page-2-bottom");
+        <SUBSEQUENT ANIMATIONS>
         setTimeout(() => setInProgress(false), 1000);
       }
       // if the page is no longer in focus, fade out:
     } else {
-      fadeOut("#page-2-text-wrap");
-      slideOut(".page-2-text");
-      fadeUp(".page-2-bottom");
+      <EXIT ANIMATIONS>
     }
   }
 }, [pageVisible, page2Count, inProgress]);
 ```
-Yay
+Note that once an animation has been triggered, the `inProgress` variable is set using setTimeout() for a duration equal to the length of the animation, so if the user leaves a page while it's animating it will continue without being interrupted.
+
+***
+
+That's the rundown of how I combined an IntersectionObserver() with the History API and some GSAP animations to dynamically animate text and images on my website. I hope you've found this interesting and/or educational! If you'd like to see all the code, check out the JavaScript in `src/components`.
+
+Thanks for reading! Check out the rest of my work at https://www.sunkenworld.com/.
