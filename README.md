@@ -1,6 +1,6 @@
 # Personal Web Dev Portfolio
 
-This is the code for my personal portfolio, which you can find [here](https://www.sunkenworld.com/).
+This is the code for my personal portfolio's landing page, which you can find [here](https://www.sunkenworld.com/).
 
 Since you came all the way here, why not have a quick look at some of the code?
 
